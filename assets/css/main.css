@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 28px;
   height: 100%;
@@ -150,6 +150,7 @@ p:last-child {
 # All Common Styles
 
 ----------------------------------------------------------------------------- */
+
 .loader {
   bottom: 0;
   height: 100%;
@@ -2290,6 +2291,7 @@ ul.social-link-team li a {
 }
 
 .contact-form-box p {
+  font-size: 16px;
   line-height: 1.8;
   opacity: 0.8;
 }

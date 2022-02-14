@@ -73,7 +73,7 @@
 										<li><a href="showgirl.php">Freshmen Girl</a></li>
 									</ul>
 								</li>
-								<li><a href="contact.html">Vote</a></li>
+								<li><button class="btn btn-warning">vote</button></li>
 								<li>
 									<div class="header-icons">
 										<?php if (isset($_SESSION['success'])) : ?>
@@ -156,8 +156,7 @@
 								<p class="subtitle">Freshmen Boy & Girl 2021</p>
 								<h1>Vote for your favorite contestant here</h1>
 								<div class="hero-btns">
-									<a href="contestant.php" class="boxed-btn">Contestant</a>
-									<a href="contact.html" class="bordered-btn">Vote</a>
+									<a href="vote.php" class="boxed-btn">Vote</a>
 								</div>
 							</div>
 						</div>
@@ -338,7 +337,7 @@
 							<li><a href="about.html">About</a></li>
 							<li><a href="services.html">Shop</a></li>
 							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="vote.php">Contact</a></li>
 						</ul>
 					</div>
 				</div>

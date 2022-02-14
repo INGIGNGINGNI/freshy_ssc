@@ -23,7 +23,6 @@
 
             if (mysqli_num_rows($result) == 1) {
                 $_SESSION['username'] = $username;
-                $_SESSION['name'] = $name;
                 $_SESSION['success'] = "คุณได้เข้าสู่ระบบแล้ว";
                 header("location: index.php");
             } else {

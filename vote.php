@@ -1,3 +1,8 @@
+<?php session_start();
+	if (!$_SESSION["username"]){
+		Header("Location: loginform.php");
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,11 +71,14 @@
 										<li><a href="showgirl.php">Freshmen Girl</a></li>
 									</ul>
 								</li>
-								<li><a href="contact.html">Vote</a></li>
+								<li><a href="vote.php">Vote</a></li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<?php if (isset($_SESSION['success'])) : ?>
+											<a class="shopping-cart"><i class="fas fa-user"></i></a>
+											<a><?php echo $_SESSION['username'];?></a>
+											<?php endif ?>
+											<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
 							</ul>
@@ -110,8 +118,8 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>Get 24/7 Support</p>
-						<h1>Contact us</h1>
+						<p>Freshmen Boy & Girl 2021</p>
+						<h1>Vote</h1>
 					</div>
 				</div>
 			</div>
@@ -125,12 +133,12 @@
 			<div class="row">
 				<div class="col-lg-8 mb-5 mb-lg-0">
 					<div class="form-title">
-						<h2>Have you any question?</h2>
+						<h2>Vote for your favorite contestant</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
 					</div>
 				 	<div id="form_status"></div>
 					<div class="contact-form">
-						<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+						<form type="POST" id="fruitkha-contact">
 							<p>
 								<input type="text" placeholder="Name" name="name" id="name">
 								<input type="email" placeholder="Email" name="email" id="email">
@@ -147,17 +155,14 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="contact-form-wrap">
+						
 						<div class="contact-form-box">
-							<h4><i class="fas fa-map"></i> Shop Address</h4>
-							<p>34/8, East Hukupara <br> Gifirtok, Sadan. <br> Country Name</p>
-						</div>
-						<div class="contact-form-box">
-							<h4><i class="far fa-clock"></i> Shop Hours</h4>
-							<p>MON - FRIDAY: 8 to 9 PM <br> SAT - SUN: 10 to 8 PM </p>
+							<h4><i class="far fa-clock"></i> Voting time</h4>
+							<p>26 February - 4 March 2022</p>
 						</div>
 						<div class="contact-form-box">
 							<h4><i class="fas fa-address-book"></i> Contact</h4>
-							<p>Phone: +00 111 222 3333 <br> Email: support@fruitkha.com</p>
+							<p><i class="fab fa-facebook-square"></i> สโมสรนิสิตคณะวิทยาศาสตร์</p>
 						</div>
 					</div>
 				</div>

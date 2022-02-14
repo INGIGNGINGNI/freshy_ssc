@@ -1,3 +1,9 @@
+<?php session_start();
+	if (!$_SESSION["username"]){
+		Header("Location: loginform.php");
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -66,11 +72,14 @@
 										<li><a href="showgirl.php">Freshmen Girl</a></li>
 									</ul>
 								</li>
-								<li><a href="contact.html">Contact</a></li>
+								<li><a href="vote.php">Contact</a></li>
 								<li>
-									<div class="header-icons">
-										<a class="shopping-cart" href="#"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+								<div class="header-icons">
+										<?php if (isset($_SESSION['success'])) : ?>
+											<a class="shopping-cart"><i class="fas fa-user"></i></a>
+											<a><?php echo $_SESSION['username'];?></a>
+											<?php endif ?>
+											<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
 							</ul>
@@ -181,7 +190,7 @@
 							<li><a href="about.html">About</a></li>
 							<li><a href="services.html">Shop</a></li>
 							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="vote.php">Contact</a></li>
 						</ul>
 					</div>
 				</div>
