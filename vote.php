@@ -1,287 +1,418 @@
-<?php session_start();
-	if (!$_SESSION["username"]){
+<?php 
+    session_start();
+    if (!$_SESSION["username"]){
 		Header("Location: loginform.php");
 	}
+    require_once "config/connection.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
-	<!-- title -->
-	<title>Science Student Club</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/sscicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-	<!-- fontawesome -->
-	<link rel="stylesheet" href="assets/css/all.min.css">
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-	<!-- owl carousel -->
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
-	<!-- magnific popup -->
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<!-- animate css -->
-	<link rel="stylesheet" href="assets/css/animate.css">
-	<!-- mean menu css -->
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
-	<!-- responsive -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
+    <title>SSC - Vote</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-<body>
-	
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Freshmen Vote <sup>by SSC</sup></div>
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Contestant</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">View profile</h6>
+                        <a class="collapse-item" href="showboy.php">Freshmen Boy</a>
+                        <a class="collapse-item" href="showgirl.php">Freshmen Girl</a>
+                        <a class="collapse-item" href="showmissile.php">Missile</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="vote.php" ><i class="far fa-check-square"></i>
+                    <span>Vote</span>
+                </a>
+                <!-- <a class="nav-link collapsed" href="order.php" ><i class="fas fa-shopping-cart"></i>
+                    <span>Pre-Order T-shirt</span>
+                </a> -->
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <?php if (isset($_SESSION['success']))?>
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">USER <?php echo $_SESSION['username'];?></span>
+                                <img class="img-profile rounded-circle"
+                                    src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">การโหวต</h1>
+                    <p class="mb-2">ร่วมโหวตผู้เข้าประกวดที่คุณชื่นชอบ เพื่อให้ผู้เข้าประกวดคนนั้นได้รับรางวัล Popular vote 
+                        และผ่านเข้าสู่รอบ Fasttrack โดยอัตโนมัติ</p>
+                    <p class="p">โดยผู้ใช้งาน 1 คนสามารถโหวตได้ 1 ครั้งเท่านั้น (รวมการโหวตทั้ง Freshmen Boy & Girl และ Missile)</p>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <!-- Circle Buttons -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Vote here</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form action="vote_db.php" method="post" enctype="multipart/form-data">
+                                        <div class="mb-3">
+                                            <label for="stdid" class="col-form-label">รหัสนิสิต :</label>
+                                            <input type="text" maxlength="9" required class="form-control" name="stdid"
+                                            onKeyUp="if(this.value*1!=this.value) this.value='' ;">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="bvote" class="col-form-label">โหวต Freshmen Boy :</label>
+                                            <select name="bvote" class="dropdown-item">
+                                                <option value="">เลือกหมายเลข</option>
+                                                <option value="B3">B3 : เค ธนพล เพชรกาศ</option>
+                                                <option value="B4">B4 : เท็น กิตติกวิน สีสอาด</option>
+                                                <option value="B5">B5 : แก๊ป นริศฐิพงศ์ อุดมพาณิชกุล</option>
+                                                <option value="B8">B8 : ภูมิ ภูมิภัทร บุญมี</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="gvote" class="col-form-label">โหวต Freshmen Girl :</label>
+                                            <select name="gvote" class="dropdown-item">
+                                                <option value="">เลือกหมายเลข</option>
+                                                <option value="G1">G1 : มิว สโรชา อินทรวิมล</option>
+                                                <option value="G2">G2 : แก้ม นุชณภัทร หนูเจริญ</option>
+                                                <option value="G3">G3 : แตงโม พรวิสาข์ ปรีชา </option>
+                                                <option value="G4">G4 : จุ๊งจิ๊ง นวรัตน์ จิตรอักษร</option>
+                                                <option value="G5">G5 : พิ้งค์ สิริวรรณ สินตุ้น</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="svote" class="col-form-label">โหวต Missile :</label>
+                                            <select name="svote" class="dropdown-item">
+                                                <option value="">เลือกหมายเลข</option>
+                                                <option value="S1">S1 : นัท จิราพันธ์ รัตนผล</option>
+                                                <option value="S4">S4 : บาน ภานุภัทร หลงรักษ์</option>
+                                                <option value="S5">S5 : มิ กฤติกา นรากิจ</option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" name="submit" class="btn btn-success">Vote</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Contestant Freshmen Boy 2021</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row py-2">
+                                        <?php 
+                                            $stmt = $conn->query("SELECT * FROM freshmen_boy");
+                                            $stmt->execute();
+                                            $conts = $stmt->fetchAll();
+                                            foreach($conts as $cont)  {  
+                                        ?>
+                                        <div class="col-sm-3">
+                                            <div class="text-s font-weight-bold text-primary mb-1">
+                                            <?php echo $cont['fos']; ?></div>
+                                            <img src="dashboard/uploads/<?php echo $cont['img']; ?>" width="80%"></img>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 mt-4 ml-5">
+                                                <?php echo $cont['position'];?> <?php echo $cont['nickname'];?></div>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Contestant Freshmen Girl 2021</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row py-2">
+                                        <?php 
+                                            $stmt = $conn->query("SELECT * FROM freshmen_girl");
+                                            $stmt->execute();
+                                            $conts = $stmt->fetchAll();
+                                            foreach($conts as $cont)  {  
+                                        ?>
+                                        <div class="col-sm-3 mb-4">
+                                            <div class="text-s font-weight-bold text-primary mb-1">
+                                            <?php echo $cont['fos']; ?></div>
+                                            <img src="dashboard/uploads/<?php echo $cont['img']; ?>" width="80%"></img>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 mt-4 ml-5">
+                                                <?php echo $cont['position'];?> <?php echo $cont['nickname'];?></div>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Contestant Missile 2021</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row py-2">
+                                        <?php 
+                                            $stmt = $conn->query("SELECT * FROM missile");
+                                            $stmt->execute();
+                                            $conts = $stmt->fetchAll();
+                                            foreach($conts as $cont)  {  
+                                        ?>
+                                        <div class="col-sm-3">
+                                            <div class="text-s font-weight-bold text-primary mb-1">
+                                            <?php echo $cont['fos']; ?></div>
+                                            <img src="dashboard/uploads/<?php echo $cont['img']; ?>" width="80%"></img>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 mt-4 ml-5">
+                                                <?php echo $cont['position'];?> <?php echo $cont['nickname'];?></div>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Science Student Club 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Press Logout below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" href="loginform.php">Logout</a>
+                </div>
+            </div>
         </div>
     </div>
-    <!--PreLoader Ends-->
-	
-	<!-- header -->
-	<div class="top-header-area" id="sticker">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 text-center">
-					<div class="main-menu-wrap">
-						<!-- logo -->
-						<div class="site-logo">
-							<a href="index.html">
-								<img src="assets/img/ssclogo2.png" alt="">
-							</a>
-						</div>
-						<!-- logo -->
 
-						<!-- menu start -->
-						<nav class="main-menu">
-							<ul>
-								<li><a href="index.php">Home</a></li>
-								<li><a>Contestant</a>
-									<ul class="sub-menu">
-										<li><a href="showboy.php">Freshmen Boy</a></li>
-										<li><a href="showgirl.php">Freshmen Girl</a></li>
-									</ul>
-								</li>
-								<li><a href="vote.php">Vote</a></li>
-								<li>
-									<div class="header-icons">
-										<?php if (isset($_SESSION['success'])) : ?>
-											<a class="shopping-cart"><i class="fas fa-user"></i></a>
-											<a><?php echo $_SESSION['username'];?></a>
-											<?php endif ?>
-											<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-									</div>
-								</li>
-							</ul>
-						</nav>
-						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-						<div class="mobile-menu"></div>
-						<!-- menu end -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end header -->
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end search arewa -->
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>Freshmen Boy & Girl 2021</p>
-						<h1>Vote</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- contact form -->
-	<div class="contact-from-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 mb-5 mb-lg-0">
-					<div class="form-title">
-						<h2>Vote for your favorite contestant</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
-					</div>
-				 	<div id="form_status"></div>
-					<div class="contact-form">
-						<form type="POST" id="fruitkha-contact">
-							<p>
-								<input type="text" placeholder="Name" name="name" id="name">
-								<input type="email" placeholder="Email" name="email" id="email">
-							</p>
-							<p>
-								<input type="tel" placeholder="Phone" name="phone" id="phone">
-								<input type="text" placeholder="Subject" name="subject" id="subject">
-							</p>
-							<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
-							<input type="hidden" name="token" value="FsWga4&@f6aw" />
-							<p><input type="submit" value="Submit"></p>
-						</form>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="contact-form-wrap">
-						
-						<div class="contact-form-box">
-							<h4><i class="far fa-clock"></i> Voting time</h4>
-							<p>26 February - 4 March 2022</p>
-						</div>
-						<div class="contact-form-box">
-							<h4><i class="fas fa-address-book"></i> Contact</h4>
-							<p><i class="fab fa-facebook-square"></i> สโมสรนิสิตคณะวิทยาศาสตร์</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end contact form -->
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
 
-	<!-- find our location -->
-	<div class="find-location blue-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<p> <i class="fas fa-map-marker-alt"></i> Find Our Location</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end find our location -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+        let imgInput = document.getElementById('imgInput');
+        let previewImg = document.getElementById('previewImg');
 
-	<!-- google map section -->
-	<div class="embed-responsive embed-responsive-21by9">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26432.42324808999!2d-118.34398767954286!3d34.09378509738966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bf07045279bf%3A0xf67a9a6797bdfae4!2sHollywood%2C%20Los%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1576846473265!5m2!1sen!2sbd" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" class="embed-responsive-item"></iframe>
-	</div>
-	<!-- end google map section -->
+        imgInput.onchange = evt => {
+            const [file] = imgInput.files;
+                if (file) {
+                    previewImg.src = URL.createObjectURL(file)
+            }
+        }
 
+        $('.delete-btn').click(function(e){
+            var id = $(this).data('id');
+            e.preventDefault();
+            deleteConfirm(id);
+        });
 
-	<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
-							<li>support@fruitkha.com</li>
-							<li>+00 111 222 3333</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Pages</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="services.html">Shop</a></li>
-							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates.</p>
-						<form action="index.html">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end footer -->
-	
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end copyright -->
-	
-	<!-- jquery -->
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
-	<!-- bootstrap -->
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-	<!-- count down -->
-	<script src="assets/js/jquery.countdown.js"></script>
-	<!-- isotope -->
-	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-	<!-- waypoints -->
-	<script src="assets/js/waypoints.js"></script>
-	<!-- owl carousel -->
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<!-- magnific popup -->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
-	<!-- mean menu -->
-	<script src="assets/js/jquery.meanmenu.min.js"></script>
-	<!-- sticker js -->
-	<script src="assets/js/sticker.js"></script>
-	<!-- form validation js -->
-	<script src="assets/js/form-validate.js"></script>
-	<!-- main js -->
-	<script src="assets/js/main.js"></script>
-	
+        function deleteConfirm(id){
+            Swal.fire({
+                title: 'Are you sure ?',
+                text: 'It will be deleted permanently!',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it !',
+                showLoaderOnConfirm: true,
+                preConfirm: function() {
+                    return new Promise(function(resolve) {[
+                        $.ajax( {
+                            url: 'freshmenboy.php',
+                            type: 'GET',
+                            data: 'delete=' + id
+                        })
+                        .done(function() {
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Data deleted successfully',
+                                icon: 'success'
+                            }).then(() => {
+                                document.location.href = 'freshmenboy.php';
+                            })
+                        })
+                        .fail(function() {
+                            Swal.fire('Oops...', 'Something went wrong with ajax!', 'error');
+                            window.location.reload();
+                        })
+                    ]})
+                }
+            })
+        }
+    </script>
+
 </body>
+
 </html>

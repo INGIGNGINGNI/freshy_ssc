@@ -23,17 +23,16 @@
 
             if (mysqli_num_rows($result) == 1) {
                 $_SESSION['username'] = $username;
-                $_SESSION['success'] = "คุณได้เข้าสู่ระบบแล้ว";
+                $_SESSION['success'] = "Logged in successfully";
                 header("location: index.php");
             } else {
                 array_push($errors, "Wrong Username or Password");
-                $_SESSION['error'] = "ชื่อผู้ใช้หรือรหัสผ่านผิด!";
                 header("location: loginform.php");
             }
         }
          else {
             array_push($errors, "Username & Password is required");
-            $_SESSION['error'] = "ต้องระบุชื่อผู้ใช้และรหัสผ่าน";
+            $_SESSION['error'] = "Required enter username & password!";
             header("location: loginform.php");
         }
     }
